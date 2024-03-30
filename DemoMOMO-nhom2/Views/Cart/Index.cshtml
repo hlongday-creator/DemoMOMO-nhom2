@@ -1,0 +1,73 @@
+﻿<section id="cart_items">
+    <div class="container">
+        <div class="breadcrumbs">
+            <ol class="breadcrumb">
+                <li><a href="#">Products</a></li>
+                <li class="active">Shopping Cart</li>
+            </ol>
+        </div>
+        @if (Model.CartItems.Count > 0)
+        {
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>Item</th>
+                            <th>Description</th>
+                            <th>Price</th>
+                            <th>Quantity</th>
+                            <th>Total</th>
+                            <th>Delete</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var item in Model.CartItems)
+                        {
+                            <tr>
+                                <td>
+                                    <img src="~/images/@item.ImageUrl" alt="@item.ProductName" width="100" />
+                                </td>
+                                <td>
+                                    <h4><a href="#">@item.ProductName</a></h4>
+                                </td>
+                                <td>@item.Price.ToString("N0") VND</td>
+                                <td>
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                            <a class="btn btn-default" asp-controller="Cart" asp-action="Decrease" asp-route-id="@item.ProductId">-</a>
+                                        </span>
+                                        <input type="text" class="form-control" value="@item.Quantity" readonly>
+                                        <span class="input-group-btn">
+                                            <a class="btn btn-default" asp-controller="Cart" asp-action="Increase" asp-route-id="@item.ProductId">+</a>
+                                        </span>
+                                    </div>
+                                </td>
+                                <td>@((item.Quantity * item.Price).ToString("N0")) VND</td>
+                                <td>
+                                    <a href="#" class="btn btn-danger"><i class="fa fa-times"></i></a>
+                                </td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            </div>
+            <div class="row">
+                <div class="col-sm-6"></div>
+                <div class="col-sm-6">
+                    <div class="total_area">
+                        <ul>
+                            <li>Thành Tiền <span>@Model.GrandTotal.ToString("N0") VND</span></li>
+                        </ul>
+                        <a class="btn btn-primary" href="@Url.Action("Payment", "Cart")">Thanh toán</a>
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="alert alert-info">
+                <strong>Your Cart is Empty</strong>
+            </div>
+        }
+    </div>
+</section>

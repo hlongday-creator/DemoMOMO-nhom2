@@ -1,0 +1,42 @@
+﻿@model IEnumerable<ProductModel>
+<div class="col-sm-3">
+    @Html.Partial("_SidebarPartial")
+
+</div>
+
+<div class="col-sm-9 padding-right">
+    <div class="features_items">
+        <!--features_items-->
+        <h2 class="title text-center">Features Items</h2>
+        <div class="row">
+            @foreach (var item in Model)
+            {
+                <div class="col-md-4 col-sm-6">
+                    <div class="product-item">
+                        <div class="product-image">
+                            <a asp-action="Details" asp-controller="Product" asp-route-Id="@item.Id">
+                                <img src="~/images/@item.Image" alt="@item.Name" class="img-responsive" style="width: 100%; height: auto;" />
+                            </a>
+                        </div>
+                        <div class="product-info text-center">
+                            <h2>@item.Price.ToString("N0") VND</h2>
+                            <p>@item.Name</p>
+                            <p>
+                                <span class="category">Category: @item.Categoty.Name</span><br />
+                                <span class="brand">Brand: @item.Brand.Name</span>
+                            </p>
+                            <div class="buttons">
+                                <a asp-action="Add" asp-controller="Cart" asp-route-Id="@item.Id" class="btn btn-medium btn-black">
+                                    Add to Cart
+                                    <svg class="cart-outline"><use xlink:href="#cart-outline"></use></svg>
+                                    
+                                </a>
+                                
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        </div>
+    </div><!--features_items-->
+</div>

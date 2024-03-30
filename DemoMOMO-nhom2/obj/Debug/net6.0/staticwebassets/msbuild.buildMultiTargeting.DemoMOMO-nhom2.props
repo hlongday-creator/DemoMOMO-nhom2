@@ -1,0 +1,3 @@
+﻿<Project>
+  <Import Project="..\build\DemoMOMO-nhom2.props" />
+</Project>
